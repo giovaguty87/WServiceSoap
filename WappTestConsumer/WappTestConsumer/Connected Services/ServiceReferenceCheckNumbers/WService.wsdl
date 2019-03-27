@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CheckNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="number" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckNumberResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckNumber" />
+  </wsdl:message>
+  <wsdl:message name="CheckNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckNumberResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WServiceSoap">
+    <wsdl:operation name="CheckNumber">
+      <wsdl:input message="tns:CheckNumberSoapIn" />
+      <wsdl:output message="tns:CheckNumberSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WServiceSoap" type="tns:WServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckNumber">
+      <soap:operation soapAction="http://tempuri.org/CheckNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WServiceSoap12" type="tns:WServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckNumber">
+      <soap12:operation soapAction="http://tempuri.org/CheckNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WService">
+    <wsdl:port name="WServiceSoap" binding="tns:WServiceSoap">
+      <soap:address location="http://localhost/WappTest/WService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WServiceSoap12" binding="tns:WServiceSoap12">
+      <soap12:address location="http://localhost/WappTest/WService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
